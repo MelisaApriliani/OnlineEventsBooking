@@ -17,7 +17,7 @@ Thumbs.db
 /backend/eventsbooking/build/test-output/
 
 # IntelliJ IDEA files
-/backend/eventsbooking/.idea/
+/backend/.idea/
 *.iml
 *.ipr
 *.iws
@@ -26,8 +26,7 @@ Thumbs.db
 *.log
 
 # Ignore main and all profile-specific configuration files
-/backend/eventsbooking/src/main/resources/application.properties
-/backend/eventsbooking/src/main/resources/application-*.properties
+
 
 # Local environment variables
 /backend/eventsbooking/.env
