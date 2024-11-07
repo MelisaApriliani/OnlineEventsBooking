@@ -20,6 +20,11 @@ public class User  {
     @Column(nullable = false)
     private String password;
 
+    @Getter
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
+
 }
 
 

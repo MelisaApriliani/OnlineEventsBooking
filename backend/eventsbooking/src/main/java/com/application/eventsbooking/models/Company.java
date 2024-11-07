@@ -8,17 +8,6 @@ import java.util.List;
 @Table(name = "company")
 public class Company extends BusinessEntity {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long id;
-//
-//    @Column(nullable = false)
-//    private String name;
-//
-//    @OneToOne
-//    @JoinColumn(name = "user_id", nullable = false, unique = true)
-//    private User user;
-
     @Column(nullable = false)
     private String industry;
 
