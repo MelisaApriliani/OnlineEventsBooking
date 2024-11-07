@@ -6,11 +6,11 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "proposed_dates")
-public class ProposedDate {
+public class EventDate {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     @ManyToOne
     @JoinColumn(name = "event_id", nullable = false)

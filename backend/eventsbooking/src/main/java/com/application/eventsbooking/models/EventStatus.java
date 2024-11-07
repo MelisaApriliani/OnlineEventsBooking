@@ -8,7 +8,7 @@ public class EventStatus {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long statusId;
+    private int statusId;
 
     @ManyToOne
     @JoinColumn(name = "event_id", nullable = false)

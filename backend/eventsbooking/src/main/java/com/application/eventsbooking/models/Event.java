@@ -13,7 +13,7 @@ public class Event {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     @Column(nullable = false)
     private String eventName;
@@ -22,7 +22,7 @@ public class Event {
     private String eventDescription;
 
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ProposedDate> proposedDates;
+    private List<EventDate> eventDates;
 
     @ManyToOne
     @JoinColumn(name = "location_id", nullable = false)

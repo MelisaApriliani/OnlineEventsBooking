@@ -7,7 +7,7 @@ public abstract class BusinessEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Long id;
+    protected int id;
 
     @Column(nullable = false)
     protected String name;
