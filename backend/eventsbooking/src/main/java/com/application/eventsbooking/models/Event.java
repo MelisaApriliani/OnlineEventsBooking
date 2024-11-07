@@ -21,9 +21,6 @@ public class Event {
     @Column(nullable = false)
     private String eventDescription;
 
-    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<EventDate> eventDates;
-
     @ManyToOne
     @JoinColumn(name = "location_id", nullable = false)
     private Location location;
@@ -36,14 +33,21 @@ public class Event {
     @JoinColumn(name = "vendor_id", nullable = false)
     private Vendor vendor;
 
+    @ManyToOne
+    @JoinColumn(name = "event_status_id", nullable = false)
+    private EventStatus eventStatus;
+
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<EventStatus> statuses;
+    private List<EventDate> eventDates;
 
     @Column
     private LocalDateTime confirmedDate;
 
     @Column(nullable = false)
     private LocalDateTime dateCreated;
+
+    @Column
+    private String remarks;
 
     // Constructors, Getters, Setters, etc.
 }
