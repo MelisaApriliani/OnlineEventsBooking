@@ -14,7 +14,6 @@ import com.application.eventsbooking.repositories.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -60,7 +59,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public EventResponseDTO updateEvent(EventUpdateDTO eventUpdateDTO) {
-        if(eventUpdateDTO.getEventDates() == null || eventUpdateDTO.getEventDates().size() <= 0 || eventUpdateDTO.getEventDates().size() > 3) {
+        if(eventUpdateDTO.getEventDates() == null || eventUpdateDTO.getEventDates().isEmpty() || eventUpdateDTO.getEventDates().size() > 3) {
             throw new InvalidArgumentException("Invalid number of event dates");
         }
         switch (eventUpdateDTO.getStatusId()){
@@ -95,7 +94,7 @@ public class EventServiceImpl implements EventService {
 
         eventEntity.setRemarks(eventUpdateDTO.getRemarks());
         eventEntity.setStatus(new EventStatus(eventUpdateDTO.getStatusId()));
-        List<EventDate> eventDates = new ArrayList<>();
+        List<EventDate> eventDates;
         eventDates = eventUpdateDTO.getEventDates().stream()
                 .map(date -> {
                     try {
@@ -109,9 +108,6 @@ public class EventServiceImpl implements EventService {
         eventEntity.setEventDates(eventDates);
 
         Event updatedEvent = eventRepository.save(eventEntity);
-        if(updatedEvent == null) {
-            throw new RuntimeException("Error while updating event");
-        }
 
         return eventMapper.toResponseDTO(updatedEvent);
     }
