@@ -29,6 +29,7 @@ public class EventBaseDTO {
 
     @Getter
     @Setter
+    @Size(max = 100, message = "Event description must be maximum 100 characters long")
     private String description;
 
     @Getter

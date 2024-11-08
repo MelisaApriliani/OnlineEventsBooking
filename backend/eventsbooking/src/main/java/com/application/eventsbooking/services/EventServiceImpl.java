@@ -1,9 +1,11 @@
 package com.application.eventsbooking.services;
 
 import com.application.eventsbooking.Mapper.EventMapper;
+import com.application.eventsbooking.constants.AppConstants;
 import com.application.eventsbooking.dto.EventCreateDTO;
 import com.application.eventsbooking.dto.EventResponseDTO;
 import com.application.eventsbooking.dto.EventUpdateDTO;
+import com.application.eventsbooking.exception.InvalidArgumentException;
 import com.application.eventsbooking.exception.ResourceNotFoundException;
 import com.application.eventsbooking.models.Event;
 import com.application.eventsbooking.models.EventDate;
@@ -33,20 +35,20 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public EventResponseDTO createEvent(EventCreateDTO eventCreateDTO) {
-        EventResponseDTO eventResponseDTO;
+        if(eventCreateDTO.getEventDate()== null || eventCreateDTO.getEventDate().size() != 3) {
+            throw new InvalidArgumentException("Event should have 3 proposed dates");
+        }
 
+        EventResponseDTO eventResponseDTO;
         try {
             Event event = eventMapper.toEvenEntity(eventCreateDTO);
 
-            //if the location is not in DB, then save it to DB
+            //if the event location is not in DB, then save it to DB
             if(eventCreateDTO.getLocation() != null && eventCreateDTO.getLocation().getId() <= 0) {
                 locationService.addLocation(eventCreateDTO.getLocation());
             }
 
             Event createdEvent = eventRepository.save(event);
-            if(createdEvent == null) {
-                throw new RuntimeException("Error while creating event");
-            }
 
             eventResponseDTO = eventMapper.toResponseDTO(createdEvent);
         }catch (Exception e){
@@ -58,6 +60,33 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public EventResponseDTO updateEvent(EventUpdateDTO eventUpdateDTO) {
+        if(eventUpdateDTO.getEventDates() == null || eventUpdateDTO.getEventDates().size() <= 0 || eventUpdateDTO.getEventDates().size() > 3) {
+            throw new InvalidArgumentException("Invalid number of event dates");
+        }
+        switch (eventUpdateDTO.getStatusId()){
+            case AppConstants.EVENT_STATUS_APPROVED:{
+                if(eventUpdateDTO.getEventDates().size() > 1) {
+                    throw new InvalidArgumentException("Approved event should have only one date");
+                }
+                break;
+            }
+            case AppConstants.EVENT_STATUS_PENDING:{
+                if(eventUpdateDTO.getEventDates().size() != 3) {
+                    throw new InvalidArgumentException("Pending event should have 3 proposed dates");
+                }
+                break;
+            }
+            case 3:{
+                if(eventUpdateDTO.getRemarks() == null || eventUpdateDTO.getRemarks().equalsIgnoreCase("")) {
+                    throw new InvalidArgumentException("Remark should be provided for rejected event");
+                }
+                break;
+            }
+            default:{
+                throw new InvalidArgumentException("Invalid event status");
+            }
+        }
+
         Event eventEntity = eventRepository.findById(eventUpdateDTO.getEventId());
 
         if(eventEntity == null) {
