@@ -24,6 +24,35 @@ INSERT INTO "account" (username, password, role)
 SELECT 'user3@test.com', 'password123', 'USER'
     WHERE NOT EXISTS (SELECT 1 FROM "account" WHERE username = 'user3@test.com');
 
+
+-- INSERT TO vendor TABLE
+-- Insert predefined vendors into the vendor table only if the given id and user_id do not exist
+INSERT INTO vendor (id, name, user_id)
+SELECT 1, 'Zenith Wellness Co.', 1
+    WHERE NOT EXISTS (SELECT 1 FROM vendor WHERE id = 1 AND user_id = 1);
+
+INSERT INTO vendor (id, name, user_id)
+SELECT 2, 'Tranquil Moments', 2
+    WHERE NOT EXISTS (SELECT 1 FROM vendor WHERE id = 2 AND user_id = 2);
+
+INSERT INTO vendor (id, name, user_id)
+SELECT 3, 'VitalEssence Wellness', 3
+    WHERE NOT EXISTS (SELECT 1 FROM vendor WHERE id = 3 AND user_id = 3);
+
+-- INSERT TO company TABLE
+-- Insert predefined companies into the company table only if the given id and user_id do not exist
+INSERT INTO company (id, name, company_code, user_id)
+SELECT 1, 'GTech Solution', 'A001', 4
+    WHERE NOT EXISTS (SELECT 1 FROM company WHERE id = 1 AND user_id = 4);
+
+INSERT INTO company (id, name, company_code, user_id)
+SELECT 2, 'RANS Corporation', 'B001', 5
+    WHERE NOT EXISTS (SELECT 1 FROM company WHERE id = 2 AND user_id = 5);
+
+INSERT INTO company (id, name, company_code, user_id)
+SELECT 3, 'Marinara Inc.', 'C001', 6
+    WHERE NOT EXISTS (SELECT 1 FROM company WHERE id = 3 AND user_id = 6);
+
 -- INSERT TO event_status TABLE
 -- Insert predefined statuses into event_status table only if they don't exist
 INSERT INTO event_status (id, status_name)
@@ -67,3 +96,4 @@ SELECT 6, 'UNITEN', '19101', 'Market Street, Philadelphia'
 INSERT INTO location (id, name, postal_code, address)
 SELECT 7, 'San Antonio', '78201', 'Alamo Plaza, San Antonio'
     WHERE NOT EXISTS (SELECT 1 FROM location WHERE id = 7 AND name = 'San Antonio');
+
