@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class VendorServiceImpl implements BusinessEntityService{
+public class VendorServiceImpl implements BusinessEntityService, VendorService {
 
     private final VendorRepository vendorRepository;
     private final VendorMapper vendorMapper;
@@ -45,6 +45,7 @@ public class VendorServiceImpl implements BusinessEntityService{
 
     }
 
+    @Override
     public List<BusinessEntityDetailsDTO> getAllVendors() {
 
         List<Vendor> vendors = vendorRepository.findAll();
