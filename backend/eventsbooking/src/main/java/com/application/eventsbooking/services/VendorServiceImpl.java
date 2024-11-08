@@ -8,6 +8,9 @@ import com.application.eventsbooking.repositories.VendorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class VendorServiceImpl implements BusinessEntityService{
 
@@ -43,5 +46,12 @@ public class VendorServiceImpl implements BusinessEntityService{
     @Override
     public BusinessEntity getBusinessEntityByUserId(int id) {
         return vendorRepository.findByUserId(id);
+    }
+
+    public List<BusinessEntity> getAllVendors() {
+        return vendorRepository.findAll()
+                .stream()
+                .map(vendor -> (BusinessEntity) vendor)
+                .collect(Collectors.toList());
     }
 }

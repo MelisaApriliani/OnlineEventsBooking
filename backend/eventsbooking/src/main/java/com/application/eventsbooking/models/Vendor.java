@@ -8,9 +8,6 @@ import java.util.List;
 @Table(name = "vendor")
 public class Vendor extends BusinessEntity {
 
-    @OneToMany(mappedBy = "vendor", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Event> events;
-
     public Vendor() {}
 
     public Vendor(String vendorName, User user) {

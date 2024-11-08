@@ -35,7 +35,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public List<Event> getEventsByCompany(int companyId) {
-        return eventRepository.findByCompany_Id(companyId).orElse(null);
+        return eventRepository.findByCompany_Id(companyId);
     }
 
     @Override

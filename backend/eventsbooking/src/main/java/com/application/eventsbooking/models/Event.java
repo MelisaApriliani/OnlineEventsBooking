@@ -19,7 +19,7 @@ public class Event {
     private String eventName;
 
     @Column(nullable = false)
-    private String eventDescription;
+    private String description;
 
     @ManyToOne
     @JoinColumn(name = "location_id", nullable = false)
@@ -35,7 +35,7 @@ public class Event {
 
     @ManyToOne
     @JoinColumn(name = "event_status_id", nullable = false)
-    private EventStatus eventStatus;
+    private EventStatus status;
 
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EventDate> eventDates;

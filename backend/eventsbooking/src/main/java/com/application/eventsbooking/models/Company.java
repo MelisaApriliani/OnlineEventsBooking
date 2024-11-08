@@ -9,10 +9,10 @@ import java.util.List;
 public class Company extends BusinessEntity {
 
     @Column(nullable = false)
-    private String industry;
+    private String companyCode;
 
-    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Event> events;
+    @Column(nullable = false)
+    private String industry;
 
     public Company() {}
 
