@@ -2,10 +2,7 @@ package com.application.eventsbooking.controllers;
 
 import com.application.eventsbooking.dto.*;
 import com.application.eventsbooking.exception.ResourceNotFoundException;
-import com.application.eventsbooking.exception.UserNotFoundException;
 import com.application.eventsbooking.factory.ApiResponseFactory;
-import com.application.eventsbooking.models.User;
-import com.application.eventsbooking.services.BusinessEntityService;
 import com.application.eventsbooking.services.EventService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
