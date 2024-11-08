@@ -1,6 +1,8 @@
 package com.application.eventsbooking.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.util.List;
 
@@ -8,11 +10,9 @@ import java.util.List;
 @Table(name = "company")
 public class Company extends BusinessEntity {
 
+    @Size(min = 3,max = 50)
     @Column(name = "company_code", nullable = false)
     private String companyCode;
-
-    @Column(nullable = false)
-    private String industry;
 
     public Company() {}
 

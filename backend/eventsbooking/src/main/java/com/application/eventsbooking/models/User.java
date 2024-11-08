@@ -28,12 +28,13 @@ public class User  {
     @Setter
     @Getter
     @NotNull(message = "Password cannot be null")
-    @Size(min = 6, message = "Password must be at least 6 characters long")
+    @Size(min = 6, max = 50, message = "Password must be at least 6 characters long")
     @Column(nullable = false)
     private String password;
 
     @Getter
     @NotNull(message = "Role cannot be null")
+    @Size(min = 6,max = 50, message = "Password must be at least 6 characters long")
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;

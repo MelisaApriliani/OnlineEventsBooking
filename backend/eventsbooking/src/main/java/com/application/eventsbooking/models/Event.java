@@ -2,6 +2,8 @@ package com.application.eventsbooking.models;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,6 +23,8 @@ public class Event {
 
     @Getter
     @Setter
+    @NotNull(message = "Event name cannot be null")
+    @Size(min = 3, max = 50, message = "Event name must be at least 3 characters long")
     @Column(name = "event_name", nullable = false)
     private String eventName;
 

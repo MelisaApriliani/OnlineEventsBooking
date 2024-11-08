@@ -27,5 +27,4 @@ public class EventDate {
     @Column(nullable = false)
     private LocalDateTime date;
 
-    // Constructors, Getters, Setters, etc.
 }
