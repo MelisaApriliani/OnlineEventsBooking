@@ -10,11 +10,11 @@ import java.time.LocalDateTime;
 
 public class ApiResponseFactory {
 
-    public static <T> ResponseEntity<ApiResponseDTO> success(DataDTO data, String message) {
+    public static <T> ResponseEntity<ApiResponseDTO<T>> success(T data, String message) {
         return ResponseEntity.ok(new SuccessResponseDTO<>(200, message, data));
     }
 
-    public static <T> ResponseEntity<ApiResponseDTO> created(DataDTO data, String message) {
+    public static <T> ResponseEntity<ApiResponseDTO<T>> created(T data, String message) {
         return ResponseEntity.status(201).body(new SuccessResponseDTO<>(201, message, data));
     }
 
