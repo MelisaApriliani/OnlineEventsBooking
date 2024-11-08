@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class SuccessResponseDTO<T extends ResponseDataDTO> extends ApiResponseDTO {
+public class SuccessResponseDTO<T extends DataDTO> extends ApiResponseDTO {
     private String message;
 
     private T data;

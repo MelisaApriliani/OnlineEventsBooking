@@ -1,4 +1,6 @@
 package com.application.eventsbooking.dto;
 
-public abstract class ResponseDataDTO {
+public abstract class DataDTO {
+
+
 }
