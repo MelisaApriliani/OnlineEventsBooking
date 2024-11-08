@@ -1,7 +1,6 @@
 package com.application.eventsbooking.services;
 
 import com.application.eventsbooking.Mapper.LocationMapper;
-import com.application.eventsbooking.Mapper.VendorMapper;
 import com.application.eventsbooking.dto.LocationDTO;
 import com.application.eventsbooking.models.Location;
 import com.application.eventsbooking.repositories.LocationRepository;

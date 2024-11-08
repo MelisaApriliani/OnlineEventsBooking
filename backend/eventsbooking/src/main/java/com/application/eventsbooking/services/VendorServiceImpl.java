@@ -1,11 +1,10 @@
 package com.application.eventsbooking.services;
 
-import com.application.eventsbooking.Mapper.VendorMapper;
+import com.application.eventsbooking.Mapper.BusinessEntityMapper;
 import com.application.eventsbooking.dto.BusinessEntityDetailsDTO;
 import com.application.eventsbooking.models.Role;
 import com.application.eventsbooking.models.Vendor;
 import com.application.eventsbooking.repositories.VendorRepository;
-import org.hibernate.boot.MappingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,12 +16,12 @@ import java.util.stream.Collectors;
 public class VendorServiceImpl implements BusinessEntityService, VendorService {
 
     private final VendorRepository vendorRepository;
-    private final VendorMapper vendorMapper;
+    private final BusinessEntityMapper businessEntityMapper;
 
     @Autowired
-    public VendorServiceImpl(VendorRepository vendorRepository, VendorMapper vendorMapper) {
+    public VendorServiceImpl(VendorRepository vendorRepository, BusinessEntityMapper businessEntityMapper) {
         this.vendorRepository = vendorRepository;
-        this.vendorMapper = vendorMapper;
+        this.businessEntityMapper = businessEntityMapper;
     }
 
 
@@ -38,7 +37,7 @@ public class VendorServiceImpl implements BusinessEntityService, VendorService {
             throw new RuntimeException("Vendor with id is not found.");
         }
         try {
-            return vendorMapper.toDTO(vendor);
+            return businessEntityMapper.toDTO(vendor);
         }catch (Exception e){
             throw new IllegalStateException("Error mapping Vendor to DTO", e);
         }
@@ -56,7 +55,7 @@ public class VendorServiceImpl implements BusinessEntityService, VendorService {
         return vendors.stream()
                 .map(vendor -> {
                     try {
-                        return vendorMapper.toDTO(vendor);
+                        return businessEntityMapper.toDTO(vendor);
                     } catch (Exception e) {
                         // handle mapping exception
                         throw new IllegalStateException("Error mapping Vendor to DTO", e);

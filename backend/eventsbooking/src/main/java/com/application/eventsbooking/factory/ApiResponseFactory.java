@@ -2,7 +2,6 @@ package com.application.eventsbooking.factory;
 
 import com.application.eventsbooking.dto.ApiResponseDTO;
 import com.application.eventsbooking.dto.ErrorResponseDTO;
-import com.application.eventsbooking.dto.DataDTO;
 import com.application.eventsbooking.dto.SuccessResponseDTO;
 import org.springframework.http.ResponseEntity;
 

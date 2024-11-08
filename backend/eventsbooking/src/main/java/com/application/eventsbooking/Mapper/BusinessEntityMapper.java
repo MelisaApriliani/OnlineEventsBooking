@@ -1,16 +1,17 @@
 package com.application.eventsbooking.Mapper;
 
 import com.application.eventsbooking.dto.BusinessEntityDetailsDTO;
+import com.application.eventsbooking.models.BusinessEntity;
 import com.application.eventsbooking.models.Vendor;
 import org.springframework.stereotype.Component;
 
 @Component
-public class VendorMapper {
+public class BusinessEntityMapper {
 
-    public BusinessEntityDetailsDTO toDTO(Vendor vendor) {
+    public BusinessEntityDetailsDTO toDTO(BusinessEntity entity) {
         BusinessEntityDetailsDTO businessEntityDetailsDTO = new BusinessEntityDetailsDTO();
-        businessEntityDetailsDTO.setVendorId(vendor.getId());
-        businessEntityDetailsDTO.setVendorName(vendor.getName());
+        businessEntityDetailsDTO.setVendorId(entity.getId());
+        businessEntityDetailsDTO.setBusinessEntityName(entity.getName());
         return businessEntityDetailsDTO;
     }
 }
