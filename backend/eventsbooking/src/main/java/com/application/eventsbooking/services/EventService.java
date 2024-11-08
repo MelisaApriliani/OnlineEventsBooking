@@ -1,5 +1,8 @@
 package com.application.eventsbooking.services;
 
+import com.application.eventsbooking.dto.EventCreateDTO;
+import com.application.eventsbooking.dto.EventResponseDTO;
+import com.application.eventsbooking.dto.EventUpdateDTO;
 import com.application.eventsbooking.models.Event;
 
 import java.util.List;
@@ -7,9 +10,9 @@ import java.util.Optional;
 
 public interface EventService {
 
-    public Event createEvent(Event event);
-    public Event updateEvent(Event event);
+    public EventResponseDTO createEvent(EventCreateDTO eventCreateDTO);
+    public EventResponseDTO updateEvent(EventUpdateDTO eventUpdateDTO);
     public void deleteEvent(Event event);
-    public List<Event> getEventsByCompany(int companyId);
-    public List<Event> getEventsByVendor(int vendorId);
+    public List<EventResponseDTO> getEventsByCompany(int companyId);
+    public List<EventResponseDTO> getEventsByVendor(int vendorId);
 }

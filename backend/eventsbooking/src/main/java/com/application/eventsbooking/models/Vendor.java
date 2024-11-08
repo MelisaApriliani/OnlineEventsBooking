@@ -15,4 +15,8 @@ public class Vendor extends BusinessEntity {
         this.user = user;
     }
 
+    public Vendor(int vendorId) {
+        super();
+        this.id = vendorId;
+    }
 }

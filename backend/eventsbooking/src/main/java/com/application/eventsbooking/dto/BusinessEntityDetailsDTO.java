@@ -3,7 +3,7 @@ package com.application.eventsbooking.dto;
 import lombok.Getter;
 import lombok.Setter;
 
-public class VendorDTO {
+public class BusinessEntityDetailsDTO extends DataDTO {
 
     @Setter
     @Getter
@@ -12,4 +12,5 @@ public class VendorDTO {
     @Setter
     @Getter
     private String vendorName;
+
 }

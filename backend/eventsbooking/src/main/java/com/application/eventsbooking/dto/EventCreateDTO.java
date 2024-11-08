@@ -1,8 +1,14 @@
 package com.application.eventsbooking.dto;
 
-import java.time.LocalDate;
+import lombok.Getter;
+import lombok.Setter;
+
+
 import java.util.List;
 
 public class EventCreateDTO extends EventBaseDTO {
-    private List<LocalDate> eventDate;
+
+    @Getter
+    @Setter
+    private List<DateDTO> eventDate;
 }

@@ -12,4 +12,8 @@ public class EventStatus {
 
     @Column(nullable = false)
     private String statusName;
+
+    public EventStatus(int statusId) {
+        this.id = statusId;
+    }
 }

@@ -20,4 +20,9 @@ public class Company extends BusinessEntity {
         this.name = name;
         this.user = user;
     }
+
+    public Company(int companyId) {
+        super();
+        this.id = companyId;
+    }
 }
