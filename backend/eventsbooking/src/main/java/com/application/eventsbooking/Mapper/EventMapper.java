@@ -47,6 +47,7 @@ public class EventMapper {
         event.setEventName(eventCreateDTO.getEventName());
         event.setDescription(eventCreateDTO.getDescription());
         event.setDateCreated(eventCreateDTO.getDateCreated().atStartOfDay());
+        event.setStatus(new EventStatus(2));
 
         Location location = new Location();
         location.setId(eventCreateDTO.getLocation().getId());

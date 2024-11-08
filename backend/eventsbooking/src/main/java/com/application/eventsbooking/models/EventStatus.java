@@ -17,7 +17,6 @@ public class EventStatus {
         this.id = statusId;
     }
 
-
     public EventStatus() {
 
     }
