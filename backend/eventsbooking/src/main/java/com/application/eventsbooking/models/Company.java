@@ -8,7 +8,7 @@ import java.util.List;
 @Table(name = "company")
 public class Company extends BusinessEntity {
 
-    @Column(nullable = false)
+    @Column(name = "company_code", nullable = false)
     private String companyCode;
 
     @Column(nullable = false)

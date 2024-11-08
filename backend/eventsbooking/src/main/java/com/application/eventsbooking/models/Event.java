@@ -10,7 +10,7 @@ import java.util.List;
 
 
 @Entity
-@Table(name = "events")
+@Table(name = "event")
 public class Event {
 
     @Getter
@@ -21,7 +21,7 @@ public class Event {
 
     @Getter
     @Setter
-    @Column(nullable = false)
+    @Column(name = "event_name", nullable = false)
     private String eventName;
 
     @Getter
@@ -60,7 +60,7 @@ public class Event {
 
     @Getter
     @Setter
-    @Column(nullable = false)
+    @Column(name = "date_created", nullable = false)
     private LocalDateTime dateCreated;
 
     @Getter

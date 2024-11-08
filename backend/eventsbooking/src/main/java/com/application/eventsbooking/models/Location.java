@@ -21,7 +21,7 @@ public class Location {
 
     @Getter
     @Setter
-    @Column()
+    @Column(name = "postal_code")
     private String postalCode;
 
     @Getter
