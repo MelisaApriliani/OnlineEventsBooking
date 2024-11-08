@@ -7,7 +7,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "proposed_dates")
+@Table(name = "event_date")
 public class EventDate {
 
     @Getter
