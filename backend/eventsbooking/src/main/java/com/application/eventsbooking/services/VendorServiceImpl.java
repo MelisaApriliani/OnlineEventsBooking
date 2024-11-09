@@ -37,7 +37,10 @@ public class VendorServiceImpl implements BusinessEntityService, VendorService {
             throw new RuntimeException("Vendor with id is not found.");
         }
         try {
-            return businessEntityMapper.toDTO(vendor);
+            BusinessEntityDetailsDTO dto = businessEntityMapper.toDTO(vendor);
+            dto.setRole(Role.ADMIN.getValue());
+
+            return dto;
         }catch (Exception e){
             throw new IllegalStateException("Error mapping Vendor to DTO", e);
         }

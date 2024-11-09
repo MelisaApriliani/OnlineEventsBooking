@@ -33,7 +33,10 @@ public class CompanyServiceImpl implements BusinessEntityService{
             throw new RuntimeException("Vendor with id is not found.");
         }
         try {
-            return businessEntityMapper.toDTO(company);
+            BusinessEntityDetailsDTO dto = businessEntityMapper.toDTO(company);
+            dto.setRole(Role.USER.getValue());
+
+            return dto;
         }catch (Exception e){
             throw new IllegalStateException("Error mapping Vendor to DTO", e);
         }

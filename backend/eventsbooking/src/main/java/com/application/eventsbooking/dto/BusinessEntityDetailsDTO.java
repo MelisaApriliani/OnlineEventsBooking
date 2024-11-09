@@ -13,4 +13,8 @@ public class BusinessEntityDetailsDTO{
     @Getter
     private String businessEntityName;
 
+    @Setter
+    @Getter
+    private String role;
+
 }
