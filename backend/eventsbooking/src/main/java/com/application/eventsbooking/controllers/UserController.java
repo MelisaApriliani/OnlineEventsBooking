@@ -10,6 +10,7 @@ import com.application.eventsbooking.services.BusinessEntityService;
 import com.application.eventsbooking.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,6 +39,7 @@ public class UserController {
 //    }
 
     @GetMapping("/details/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<ApiResponseDTO<BusinessEntityDetailsDTO>> getUserDetails(@PathVariable int id) {
         if (id <= 0) {
             throw new UserNotFoundException("User with ID " + id + " not found");

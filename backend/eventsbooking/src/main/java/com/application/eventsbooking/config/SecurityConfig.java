@@ -39,7 +39,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/event/{id}", "/api/event/company/{id}").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/api/event/vendor/{id}", "/api/event/update").hasRole("ADMIN")
                         .requestMatchers("/api/event/create").hasAnyRole("USER", "ADMIN")
-                        .requestMatchers("api/user/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/api/user/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/api/location/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/api/vendor/**").hasAnyRole("USER", "ADMIN")
                         .anyRequest().authenticated()

@@ -1,5 +1,6 @@
 package com.application.eventsbooking.services;
 
+import com.application.eventsbooking.exception.UserNotFoundException;
 import com.application.eventsbooking.models.Role;
 import com.application.eventsbooking.models.User;
 import com.application.eventsbooking.repositories.UserRepository;
@@ -43,8 +44,11 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
         log.info("retrieved user records",user);
+        if(user == null){
+            throw new UserNotFoundException("User not found");
+        }
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
-                List.of(new SimpleGrantedAuthority(user.getRole().name())));
+                List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole().name())));
     }
 
     private Collection<? extends GrantedAuthority> getAuthorities(Role role) {
