@@ -7,6 +7,7 @@ import com.application.eventsbooking.services.EventService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -45,6 +46,7 @@ public class EventController {
     }
 
     @GetMapping("/vendor/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ApiResponseDTO<List<EventResponseDTO>>> getEventDetailsbyVendor(@PathVariable int id) {
         if (id <= 0) {
             throw new ResourceNotFoundException("Event with vendor ID " + id + " not found.");
@@ -64,6 +66,7 @@ public class EventController {
     }
 
     @PostMapping("/update")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ApiResponseDTO<EventResponseDTO>> updateEvent(@Valid @RequestBody EventUpdateDTO eventUpdateDTO) {
 
         EventResponseDTO responseDTO = eventService.updateEvent(eventUpdateDTO);

@@ -1,27 +1,27 @@
 -- INSERT TO account TABLE
 -- Check if the user table is empty, if so, insert predefined records
 INSERT INTO "account" (username, password, role)
-SELECT 'admin1@test.com', 'password123', 'ADMIN'
+SELECT 'admin1@test.com', '$2a$10$1TPTEQ/UlcNdBkR4j8PfjuE6AJBMTjAXWjKJhc7NgBbDtgRqEa8K6', 'ADMIN'
     WHERE NOT EXISTS (SELECT 1 FROM "account" WHERE username = 'admin1@test.com');
 
 INSERT INTO "account" (username, password, role)
-SELECT 'admin2@test.com', 'password123', 'ADMIN'
+SELECT 'admin2@test.com', '$2a$10$1TPTEQ/UlcNdBkR4j8PfjuE6AJBMTjAXWjKJhc7NgBbDtgRqEa8K6', 'ADMIN'
     WHERE NOT EXISTS (SELECT 1 FROM "account" WHERE username = 'admin2@test.com');
 
 INSERT INTO "account" (username, password, role)
-SELECT 'admin3@test.com', 'password123', 'ADMIN'
+SELECT 'admin3@test.com', '$2a$10$1TPTEQ/UlcNdBkR4j8PfjuE6AJBMTjAXWjKJhc7NgBbDtgRqEa8K6', 'ADMIN'
     WHERE NOT EXISTS (SELECT 1 FROM "account" WHERE username = 'admin3@test.com');
 
 INSERT INTO "account" (username, password, role)
-SELECT 'user1@test.com', 'password123', 'USER'
+SELECT 'user1@test.com', '$2a$10$1TPTEQ/UlcNdBkR4j8PfjuE6AJBMTjAXWjKJhc7NgBbDtgRqEa8K6', 'USER'
     WHERE NOT EXISTS (SELECT 1 FROM "account" WHERE username = 'user1@test.com');
 
 INSERT INTO "account" (username, password, role)
-SELECT 'user2@test.com', 'password123', 'USER'
+SELECT 'user2@test.com', '$2a$10$1TPTEQ/UlcNdBkR4j8PfjuE6AJBMTjAXWjKJhc7NgBbDtgRqEa8K6', 'USER'
     WHERE NOT EXISTS (SELECT 1 FROM "account" WHERE username = 'user2@test.com');
 
 INSERT INTO "account" (username, password, role)
-SELECT 'user3@test.com', 'password123', 'USER'
+SELECT 'user3@test.com', '$2a$10$1TPTEQ/UlcNdBkR4j8PfjuE6AJBMTjAXWjKJhc7NgBbDtgRqEa8K6', 'USER'
     WHERE NOT EXISTS (SELECT 1 FROM "account" WHERE username = 'user3@test.com');
 
 
@@ -71,29 +71,29 @@ SELECT 3, 'Rejected'
 -- Insert predefined locations into location table only if they don't exist
 INSERT INTO location (id, name, postal_code, address)
 SELECT 1, 'CGC Hall', '10001', '5th Avenue, New York City'
-    WHERE NOT EXISTS (SELECT 1 FROM location WHERE id = 1 AND name = 'New York');
+    WHERE NOT EXISTS (SELECT 1 FROM location WHERE id = 1);
 
 INSERT INTO location (id, name, postal_code, address)
 SELECT 2, 'XYZ Convention Centre', '90001', 'Main Street, Los Angeles'
-    WHERE NOT EXISTS (SELECT 1 FROM location WHERE id = 2 AND name = 'Los Angeles');
+    WHERE NOT EXISTS (SELECT 1 FROM location WHERE id = 2);
 
 INSERT INTO location (id, name, postal_code, address)
 SELECT 3, 'One Avenue', '60601', 'Michigan Avenue, Chicago'
-    WHERE NOT EXISTS (SELECT 1 FROM location WHERE id = 3 AND name = 'Chicago');
+    WHERE NOT EXISTS (SELECT 1 FROM location WHERE id = 3);
 
 INSERT INTO location (id, name, postal_code, address)
 SELECT 4, 'City Hospital', '77001', 'Texas Street, Houston'
-    WHERE NOT EXISTS (SELECT 1 FROM location WHERE id = 4 AND name = 'Houston');
+    WHERE NOT EXISTS (SELECT 1 FROM location WHERE id = 4);
 
 INSERT INTO location (id, name, postal_code, address)
 SELECT 5, 'BYD Hall', '85001', 'Central Avenue, Phoenix'
-    WHERE NOT EXISTS (SELECT 1 FROM location WHERE id = 5 AND name = 'Phoenix');
+    WHERE NOT EXISTS (SELECT 1 FROM location WHERE id = 5);
 
 INSERT INTO location (id, name, postal_code, address)
 SELECT 6, 'UNITEN', '19101', 'Market Street, Philadelphia'
-    WHERE NOT EXISTS (SELECT 1 FROM location WHERE id = 6 AND name = 'Philadelphia');
+    WHERE NOT EXISTS (SELECT 1 FROM location WHERE id = 6);
 
 INSERT INTO location (id, name, postal_code, address)
 SELECT 7, 'San Antonio', '78201', 'Alamo Plaza, San Antonio'
-    WHERE NOT EXISTS (SELECT 1 FROM location WHERE id = 7 AND name = 'San Antonio');
+    WHERE NOT EXISTS (SELECT 1 FROM location WHERE id = 7);
 

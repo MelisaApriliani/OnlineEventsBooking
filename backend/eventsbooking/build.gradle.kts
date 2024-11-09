@@ -34,6 +34,9 @@ dependencies {
 	implementation("org.thymeleaf.extras:thymeleaf-extras-springsecurity6")
 	implementation("org.postgresql:postgresql:42.7.2")
 	implementation("org.glassfish:jakarta.el:4.0.2")
+	implementation ("io.jsonwebtoken:jjwt-api:0.11.2")
+	runtimeOnly ("io.jsonwebtoken:jjwt-impl:0.11.2")
+	runtimeOnly ("io.jsonwebtoken:jjwt-jackson:0.11.2")// for JSON support in JWT
 	compileOnly("org.projectlombok:lombok")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	runtimeOnly("org.postgresql:postgresql")

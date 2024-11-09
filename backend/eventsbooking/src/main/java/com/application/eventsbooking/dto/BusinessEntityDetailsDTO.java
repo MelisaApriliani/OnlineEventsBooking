@@ -7,7 +7,7 @@ public class BusinessEntityDetailsDTO{
 
     @Setter
     @Getter
-    private int vendorId;
+    private int businessId;
 
     @Setter
     @Getter
