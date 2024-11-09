@@ -1,18 +1,33 @@
 package com.application.eventsbooking.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 
-public class ErrorResponseDTO extends ApiResponseDTO{
-    private LocalDateTime timestamp;
-    private String error;
+public class ErrorResponseDTO {
 
-    public ErrorResponseDTO(int status) {
-        super(status);
+    @Getter
+    @Setter
+    private int status;
+    private LocalDateTime timestamp;
+    private String errorCode;
+    private String message;
+
+
+    public ErrorResponseDTO(int status, LocalDateTime timestamp, String errorCode, String message) {
+        this.status = status;
+        this.timestamp = timestamp;
+        this.errorCode = errorCode;
+        this.message = message == null ? "" : message;
     }
 
-    public ErrorResponseDTO(int status, LocalDateTime timestamp, String error) {
-        super(status);
-        this.timestamp = timestamp;
-        this.error = error;
+    @Override
+    public String toString() {
+        return "ErrorResponseDTO{" +
+                "errorCode='" + errorCode + '\'' +
+                ", message='" + message + '\'' +
+                '}';
+
     }
 }

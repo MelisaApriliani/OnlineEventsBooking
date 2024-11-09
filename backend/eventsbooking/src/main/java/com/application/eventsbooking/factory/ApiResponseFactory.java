@@ -17,7 +17,7 @@ public class ApiResponseFactory {
         return ResponseEntity.status(201).body(new SuccessResponseDTO<>(201, message, data));
     }
 
-    public static <T> ResponseEntity<ApiResponseDTO> error(LocalDateTime date, int statusCode, String error) {
-        return ResponseEntity.status(statusCode).body(new ErrorResponseDTO(statusCode, date, error));
+    public static <T> ResponseEntity<ErrorResponseDTO> error(int status, LocalDateTime date, String statusCode, String error) {
+        return ResponseEntity.status(status).body(new ErrorResponseDTO(status,date,statusCode, error));
     }
 }
