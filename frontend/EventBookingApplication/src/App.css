@@ -88,7 +88,7 @@ body, input, select, textarea, button {
   background-color: #0056b3;
 }
 
-.login-container {
+.login-container, .event-booking-container {
   width: 70%;
   max-width: 1000px;
   padding: 16px;
