@@ -13,5 +13,5 @@ public class EventCreateDTO extends EventBaseDTO {
 
     @Getter
     @Setter
-    private List<DateDTO> eventDate;
+    private List<DateDTO> eventDates;
 }
