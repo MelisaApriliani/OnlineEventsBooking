@@ -6,6 +6,7 @@ import com.application.eventsbooking.factory.ApiResponseFactory;
 import com.application.eventsbooking.services.VendorService;
 import com.application.eventsbooking.services.VendorServiceImpl;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +23,7 @@ public class VendorController {
     }
 
     @GetMapping("")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<ApiResponseDTO<List<BusinessEntityDetailsDTO>>> getAllVendors() {
 
         List<BusinessEntityDetailsDTO> responseDTO = vendorService.getAllVendors();

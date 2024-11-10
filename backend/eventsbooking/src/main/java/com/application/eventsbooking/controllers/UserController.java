@@ -30,15 +30,6 @@ public class UserController {
         this.userService = userService;
     }
 
-//    @GetMapping("/user/{id}")
-//    public String getUserById(@PathVariable int id) {
-//        if (id <= 0) {
-//            throw new UserNotFoundException("User with ID " + id + " not found");
-//        }
-//        // Retrieve and return user details (example code here)
-//        return "User details";
-//    }
-
     @GetMapping("/details/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<ApiResponseDTO<BusinessEntityDetailsDTO>> getUserDetails(@PathVariable int id) {

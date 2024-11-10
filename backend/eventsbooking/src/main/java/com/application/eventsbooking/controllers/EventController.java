@@ -24,6 +24,7 @@ public class EventController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<ApiResponseDTO<EventResponseDTO>> getEventDetails(@PathVariable int id) {
         if (id <= 0) {
             throw new ResourceNotFoundException("Event with ID " + id + " not found");
@@ -35,6 +36,7 @@ public class EventController {
     }
 
     @GetMapping("/company/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<ApiResponseDTO<List<EventResponseDTO>>> getEventDetailsbyCompany(@PathVariable int id) {
         if (id <= 0) {
             throw new ResourceNotFoundException("Event with company ID " + id + " not found.");
@@ -58,6 +60,7 @@ public class EventController {
     }
 
     @PostMapping("/create")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<ApiResponseDTO<EventResponseDTO>> addEvent(@Valid @RequestBody EventCreateDTO eventCreateDTO) {
 
         EventResponseDTO responseDTO = eventService.createEvent(eventCreateDTO);

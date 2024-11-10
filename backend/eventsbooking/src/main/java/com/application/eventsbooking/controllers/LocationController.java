@@ -7,6 +7,7 @@ import com.application.eventsbooking.services.LocationService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,6 +24,7 @@ public class LocationController {
     }
 
     @PostMapping("/create")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<ApiResponseDTO<LocationDTO>> addLocation(@Valid @RequestBody LocationDTO locationDTO) {
 
         LocationDTO responseDTO = locationService.addLocation(locationDTO);
@@ -31,6 +33,7 @@ public class LocationController {
     }
 
     @GetMapping("")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<ApiResponseDTO<List<LocationDTO>>> getAllLocations() {
 
         List<LocationDTO> responseDTO = locationService.getAllLocations();
