@@ -68,13 +68,13 @@ public class EventMapper {
 //
 //        event.setLocation(location);
 
-        List<EventDate> dates = eventCreateDTO.getEventDate().stream()
+        List<EventDate> dates = eventCreateDTO.getEventDates().stream()
                 .map(date -> {
                     try {
                         return toDateEntity(date);
                     } catch (Exception e) {
                         // handle mapping exception
-                        throw new IllegalStateException("Error mapping Vendor to DTO", e);
+                        throw new IllegalStateException("Error mapping dates to entity", e);
                     }
                 }).toList();
         event.setEventDates(dates);

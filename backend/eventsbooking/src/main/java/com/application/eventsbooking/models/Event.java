@@ -30,7 +30,7 @@ public class Event {
 
     @Getter
     @Setter
-    @Column(nullable = false)
+    @Column(name = "description", nullable = false)
     private String description;
 
     @Getter
