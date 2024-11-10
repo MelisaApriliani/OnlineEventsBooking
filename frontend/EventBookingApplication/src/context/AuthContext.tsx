@@ -3,7 +3,7 @@ import { BusinessEntity } from '../models/User';
 
 
 interface AuthContextType {
-  token: string | null;
+  token: string;
   userDetails: BusinessEntity | null;
   saveToken: (token: string) => void;
   saveUserDetails:(user: BusinessEntity)=> void;
@@ -19,7 +19,7 @@ interface AuthProviderProps {
 
 // Create a provider component
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [token, setToken] = useState<string | null>(null);
+  const [token, setToken] = useState<string>("");
   const [userDetails, setUserDetails] = useState<BusinessEntity | null>(null);
 
   // Load token and user details from localStorage when the app loads
@@ -55,7 +55,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const logout = () => {
-    setToken(null);
+    setToken("");
     setUserDetails(null);
     localStorage.removeItem('authToken');
     localStorage.removeItem('userDetails');

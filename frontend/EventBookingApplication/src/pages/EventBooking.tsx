@@ -10,6 +10,7 @@ import { VendorService } from '../services/VendorService';
 // import DatePicker from 'react-datepicker';
 import Select, { SingleValue } from 'react-select';
 import DatePicker from 'react-datepicker';
+import '../App.css';
 
 
 
@@ -63,12 +64,10 @@ const EventBooking: React.FC = () => {
         if(eventForm != null){
             try {
                 setLoading(true);
-                const details:EventDetails = await EventService.createEvent(eventForm);
-                console.log(details.eventId);
+                const details:EventDetails|null = await EventService.createEvent(eventForm);
+                console.log(details?.eventId);
 
                 navigate("/", { replace: true });
-        
-                
             } catch (error) {
                 console.error('Error logging in user:', error);
         
