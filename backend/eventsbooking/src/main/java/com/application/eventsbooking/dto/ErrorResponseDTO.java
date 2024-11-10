@@ -5,29 +5,20 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-public class ErrorResponseDTO {
+@Getter
+@Setter
+public class ErrorResponseDTO<T> extends ApiResponseDTO<T> {
 
-    @Getter
-    @Setter
-    private int status;
-    private LocalDateTime timestamp;
     private String errorCode;
-    private String message;
+    private String error;
+    private T data;
 
 
-    public ErrorResponseDTO(int status, LocalDateTime timestamp, String errorCode, String message) {
-        this.status = status;
-        this.timestamp = timestamp;
+    public ErrorResponseDTO(int status, String errorCode, String message) {
+        super(status);
         this.errorCode = errorCode;
-        this.message = message == null ? "" : message;
+        this.error = message == null ? "" : message;
+        this.data = null;
     }
 
-    @Override
-    public String toString() {
-        return "ErrorResponseDTO{" +
-                "errorCode='" + errorCode + '\'' +
-                ", message='" + message + '\'' +
-                '}';
-
-    }
 }
