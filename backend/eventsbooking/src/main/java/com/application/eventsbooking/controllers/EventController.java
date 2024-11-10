@@ -30,8 +30,6 @@ public class EventController {
             throw new ResourceNotFoundException("Event with ID " + id + " not found");
         }
 
-//        EventResponseDTO responseDTO = eventService.geEventById(id);
-
         return ApiResponseFactory.success(null, "Event details retrieved successfully.");
     }
 

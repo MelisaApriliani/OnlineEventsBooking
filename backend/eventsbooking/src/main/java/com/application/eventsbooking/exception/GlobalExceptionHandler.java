@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -142,6 +143,16 @@ public class GlobalExceptionHandler {
         return ApiResponseFactory.error(
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 "NULL_POINTER_EXCEPTION",
+                ex.getMessage()
+
+        );
+    }
+
+    @ExceptionHandler(AuthorizationDeniedException.class)
+    public ResponseEntity<ApiResponseDTO<Object>> handleAuthorizationDenied(Exception ex, WebRequest request) {
+        return ApiResponseFactory.error(
+                HttpStatus.UNAUTHORIZED.value(),
+                "UNAUTHORIZED",
                 ex.getMessage()
 
         );
