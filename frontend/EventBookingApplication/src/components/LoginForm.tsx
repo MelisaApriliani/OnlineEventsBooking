@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useToken } from '../context/TokenContext';
+import React, { useState, useContext } from 'react';
+import { LoginService } from '../services/LoginService';
+import { AuthContext } from '../context/AuthContext';
 
-const LoginForm: React.FC = () => {
-  const { setToken } = useToken();
+interface LoginProps {
+  onLoginSuccess: () => void; // Define the prop for handling login success
+}
+
+const LoginForm: React.FC<LoginProps> = ({ onLoginSuccess }) => {
+  const { saveToken } = useContext(AuthContext)!; 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -18,17 +23,28 @@ const LoginForm: React.FC = () => {
     }
 
     try {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/login`, {
-        username,
-        password,
-      });
-      setToken(response.data.token);  // Store token globally
-    } catch (err) {
-      setError("Invalid username or password.");
+      setLoading(true);
+      const token: string = await LoginService.login({username,password});
+      console.log(token)
+
+      if(token != null && token.length>0){
+        saveToken(token)
+      }
+      
+      onLoginSuccess();
+    } catch (error) {
+      console.error('Error logging in user:', error);
+
+    } finally {
+      setLoading(false);
     }
+
   };
 
+  if (loading) return <p>Loading...</p>;
+
   return (
+    <form onSubmit={handleLogin}>
         <div>
             <h2>Login</h2>
             <div className="login-form">
@@ -56,8 +72,9 @@ const LoginForm: React.FC = () => {
                 </div>
             </div>
             {error && <p className="error">{error}</p>}
-            <button type="submit" onClick={handleLogin}>Login</button>
+            <button type="submit" >Login</button>
         </div>
+    </form>
   );
 };
 

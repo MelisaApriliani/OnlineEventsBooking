@@ -5,10 +5,23 @@ const LOGIN_URL = import.meta.env.VITE_API_LOGIN_URL;
 
 export const LoginService = {
 
+    async login(loginData: LoginData): Promise<string> {
 
-  async login(loginData: LoginData): Promise<String> {
-    const response = await axios.post<Token>(`${LOGIN_URL}/login`, loginData);
-    return response.data.token;
+    try{
+
+        const response = await axios.post<Token>(`${LOGIN_URL}/login`, loginData);
+        
+        if (response.status === 200) {
+            return response.data ? response.data.token: "";
+            console.log('login response', response.data)
+        } else {
+            console.error('Login Failed: ', response.status);
+        }
+    }catch (error){
+        console.log(error);
+    }
+
+    return "";
   },
 
  
