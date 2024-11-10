@@ -20,7 +20,19 @@ body, input, select, textarea, button {
   font-size: 14px; 
 }
 
-.login-form {
+.login-container, .event-booking-container {
+  width: 70%;
+  max-width: 1000px;
+  padding: 16px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 100px;
+  margin-bottom: 100px;
+  box-sizing: border-box;
+}
+
+.login-form, .event-form {
   padding: 16px;
   background-color: #f8d2c2;
   border: 1px solid #ec3c35;
@@ -63,12 +75,12 @@ body, input, select, textarea, button {
   color: #333;
 }
 
-.login-container h2 {
+h2 {
   font-size: 24px;
   margin-bottom: 16px;
 }
 
-.login-container button {
+button {
   margin-top: 20px;
   padding: 10px 20px;
   background-color: #007bff;
@@ -78,24 +90,13 @@ body, input, select, textarea, button {
   cursor: pointer;
 }
 
-.login-container button:focus {
+button:focus {
   outline: none;
   border-color: #2684FF;
   box-shadow: 0 0 0 1px #2684FF; 
 }
 
-.login-container button:hover {
+button:hover {
   background-color: #0056b3;
 }
 
-.login-container, .event-booking-container {
-  width: 70%;
-  max-width: 1000px;
-  padding: 16px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin-top: 100px;
-  margin-bottom: 100px;
-  box-sizing: border-box;
-}
