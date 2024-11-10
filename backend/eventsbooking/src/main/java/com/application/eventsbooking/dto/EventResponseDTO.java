@@ -1,11 +1,9 @@
 package com.application.eventsbooking.dto;
 
-import com.application.eventsbooking.models.BusinessEntity;
 import com.application.eventsbooking.models.EventStatus;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public class EventResponseDTO extends EventBaseDTO {
@@ -16,7 +14,7 @@ public class EventResponseDTO extends EventBaseDTO {
 
     @Getter
     @Setter
-    private EventStatus status;
+    private EventStatus eventStatus;
 
     @Getter
     @Setter

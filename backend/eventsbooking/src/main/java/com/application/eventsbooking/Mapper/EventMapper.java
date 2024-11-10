@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class EventMapper {
@@ -35,7 +34,7 @@ public class EventMapper {
 
         dto.setLocation(locationDTO);
         dto.setDateCreated(event.getDateCreated().toLocalDate());
-        dto.setStatus(event.getStatus());
+        dto.setEventStatus(event.getStatus());
 
         List<DateDTO> dates = event.getEventDates().stream()
                 .map(date -> {

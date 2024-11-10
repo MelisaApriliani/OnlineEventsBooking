@@ -59,7 +59,7 @@ public class EventServiceImpl implements EventService {
                 location = locationMapper.toEntity(locationService.addLocation(eventCreateDTO.getLocation()));
                 event.setLocation(location);
             }
-            
+
             Event createdEvent = eventRepository.save(event);
             log.info("successfully saving event to database"+ createdEvent);
 
@@ -109,18 +109,14 @@ public class EventServiceImpl implements EventService {
 
         eventEntity.setRemarks(eventUpdateDTO.getRemarks());
         eventEntity.setStatus(new EventStatus(eventUpdateDTO.getStatusId()));
-        List<EventDate> eventDates;
-        eventDates = eventUpdateDTO.getEventDates().stream()
-                .map(date -> {
-                    try {
-                        return eventMapper.toDateEntity(date);
-                    } catch (Exception e) {
-                        // handle mapping exception
-                        throw new IllegalStateException("Error mapping Even to entity", e);
-                    }
-                })
-                .collect(Collectors.toList());
-        eventEntity.setEventDates(eventDates);
+
+        if(eventUpdateDTO.getStatusId() == AppConstants.EVENT_STATUS_APPROVED) {
+            eventEntity.getEventDates().clear();
+            EventDate date = new EventDate();
+            date.setId(eventUpdateDTO.getEventDates().get(0).getId());
+            date.setDate(eventUpdateDTO.getEventDates().get(0).getDate());
+            eventEntity.addEventDate(date);
+        }
 
         Event updatedEvent = eventRepository.save(eventEntity);
 
