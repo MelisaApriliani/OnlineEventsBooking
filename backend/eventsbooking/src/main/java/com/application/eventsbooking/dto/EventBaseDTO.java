@@ -19,10 +19,6 @@ public class EventBaseDTO {
 
     @Getter
     @Setter
-    private int vendorId;
-
-    @Getter
-    @Setter
     @NotNull(message = "Even name cannot be empty")
     @Size(min = 2, message = "Event name should have at least 2 characters")
     private String eventName;

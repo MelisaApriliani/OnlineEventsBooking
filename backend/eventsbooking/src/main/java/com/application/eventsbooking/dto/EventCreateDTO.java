@@ -7,6 +7,9 @@ import lombok.Setter;
 import java.util.List;
 
 public class EventCreateDTO extends EventBaseDTO {
+    @Getter
+    @Setter
+    private int vendorId;
 
     @Getter
     @Setter

@@ -1,5 +1,7 @@
 package com.application.eventsbooking.dto;
 
+import com.application.eventsbooking.models.BusinessEntity;
+import com.application.eventsbooking.models.EventStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,9 +16,13 @@ public class EventResponseDTO extends EventBaseDTO {
 
     @Getter
     @Setter
-    private int statusId;
+    private EventStatus status;
 
     @Getter
     @Setter
     private String remarks;
+
+    @Getter
+    @Setter
+    private BusinessEntityDetailsDTO vendor;
 }

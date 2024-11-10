@@ -1,15 +1,18 @@
 package com.application.eventsbooking.services;
 
 import com.application.eventsbooking.Mapper.EventMapper;
+import com.application.eventsbooking.Mapper.LocationMapper;
 import com.application.eventsbooking.constants.AppConstants;
 import com.application.eventsbooking.dto.EventCreateDTO;
 import com.application.eventsbooking.dto.EventResponseDTO;
 import com.application.eventsbooking.dto.EventUpdateDTO;
+import com.application.eventsbooking.dto.LocationDTO;
 import com.application.eventsbooking.exception.InvalidArgumentException;
 import com.application.eventsbooking.exception.ResourceNotFoundException;
 import com.application.eventsbooking.models.Event;
 import com.application.eventsbooking.models.EventDate;
 import com.application.eventsbooking.models.EventStatus;
+import com.application.eventsbooking.models.Location;
 import com.application.eventsbooking.repositories.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,13 +26,15 @@ public class EventServiceImpl implements EventService {
     private final EventRepository eventRepository;
     private final EventMapper eventMapper;
     private final LocationService locationService;
+    private final LocationMapper locationMapper;
 
 
     @Autowired
-    public EventServiceImpl(EventRepository eventRepository, EventMapper eventMapper, LocationService locationService) {
+    public EventServiceImpl(EventRepository eventRepository, EventMapper eventMapper, LocationService locationService, LocationMapper locationMapper) {
         this.eventRepository = eventRepository;
         this.eventMapper = eventMapper;
         this.locationService = locationService;
+        this.locationMapper = locationMapper;
     }
 
     @Override
@@ -43,8 +48,10 @@ public class EventServiceImpl implements EventService {
             Event event = eventMapper.toEvenEntity(eventCreateDTO);
 
             //if the event location is not in DB, then save it to DB
+            Location location;
             if(eventCreateDTO.getLocation() != null && eventCreateDTO.getLocation().getId() <= 0) {
-                locationService.addLocation(eventCreateDTO.getLocation());
+                location = locationMapper.toEntity(locationService.addLocation(eventCreateDTO.getLocation()));
+                event.setLocation(location);
             }
 
             Event createdEvent = eventRepository.save(event);
