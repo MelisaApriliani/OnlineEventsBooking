@@ -60,24 +60,11 @@ public class EventMapper {
         event.setDateCreated(eventCreateDTO.getDateCreated().atStartOfDay());
         event.setStatus(new EventStatus(2));
 
-//        Location location = new Location();
-//        location.setId(eventCreateDTO.getLocation().getId());
-//        location.setName(eventCreateDTO.getLocation().getName());
-//        location.setAddress(eventCreateDTO.getLocation().getAddress());
-//        location.setPostalCode(eventCreateDTO.getLocation().getPostalCode());
-//
-//        event.setLocation(location);
-
-        List<EventDate> dates = eventCreateDTO.getEventDates().stream()
-                .map(date -> {
-                    try {
-                        return toDateEntity(date);
-                    } catch (Exception e) {
-                        // handle mapping exception
-                        throw new IllegalStateException("Error mapping dates to entity", e);
-                    }
-                }).toList();
-        event.setEventDates(dates);
+        for(DateDTO dateDTO : eventCreateDTO.getEventDates()) {
+            EventDate eventDate = new EventDate();
+            eventDate.setDate(dateDTO.getDate());
+            event.addEventDate(eventDate);
+        }
 
         return event;
     }
@@ -85,14 +72,14 @@ public class EventMapper {
     public DateDTO toDateDTO(EventDate eventDate) {
         DateDTO dto = new DateDTO();
         dto.setId(eventDate.getId());
-        dto.setDate(eventDate.getDate().toLocalDate());
+        dto.setDate(eventDate.getDate());
 
         return dto;
     }
 
     public EventDate toDateEntity(DateDTO eventDate) {
         EventDate date = new EventDate();
-        date.setDate(eventDate.getDate().atStartOfDay());
+        date.setDate(eventDate.getDate());
 
         return date;
     }

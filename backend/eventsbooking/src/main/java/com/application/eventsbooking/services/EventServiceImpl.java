@@ -14,12 +14,14 @@ import com.application.eventsbooking.models.EventDate;
 import com.application.eventsbooking.models.EventStatus;
 import com.application.eventsbooking.models.Location;
 import com.application.eventsbooking.repositories.EventRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class EventServiceImpl implements EventService {
 
@@ -39,7 +41,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public EventResponseDTO createEvent(EventCreateDTO eventCreateDTO) {
-        if(eventCreateDTO.getEventDate()== null || eventCreateDTO.getEventDate().size() != 3) {
+        if(eventCreateDTO.getEventDates()== null || eventCreateDTO.getEventDates().size() != 3) {
             throw new InvalidArgumentException("Event should have 3 proposed dates");
         }
 
@@ -47,16 +49,22 @@ public class EventServiceImpl implements EventService {
         try {
             Event event = eventMapper.toEvenEntity(eventCreateDTO);
 
+            log.info("Mapped DTO to entity"+ event);
+
             //if the event location is not in DB, then save it to DB
+            //TODO need to check in DB if the same location name and postalcode exists
             Location location;
             if(eventCreateDTO.getLocation() != null && eventCreateDTO.getLocation().getId() <= 0) {
+
                 location = locationMapper.toEntity(locationService.addLocation(eventCreateDTO.getLocation()));
                 event.setLocation(location);
             }
-
+            
             Event createdEvent = eventRepository.save(event);
+            log.info("successfully saving event to database"+ createdEvent);
 
             eventResponseDTO = eventMapper.toResponseDTO(createdEvent);
+
         }catch (Exception e){
             throw new RuntimeException("Error while creating event");
         }
