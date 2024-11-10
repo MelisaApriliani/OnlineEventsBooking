@@ -35,6 +35,7 @@ dependencies {
 	implementation("org.postgresql:postgresql:42.7.2")
 	implementation("org.glassfish:jakarta.el:4.0.2")
 	implementation ("io.jsonwebtoken:jjwt-api:0.11.2")
+	implementation ("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.2")
 	runtimeOnly ("io.jsonwebtoken:jjwt-impl:0.11.2")
 	runtimeOnly ("io.jsonwebtoken:jjwt-jackson:0.11.2")// for JSON support in JWT
 	compileOnly("org.projectlombok:lombok")
