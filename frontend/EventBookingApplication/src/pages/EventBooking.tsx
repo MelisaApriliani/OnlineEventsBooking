@@ -19,7 +19,12 @@ const EventBooking: React.FC = () => {
     const [eventForm, setEventForm] = useState<CreateEventPayload | null>(null);
     const [locations, setLocations] = useState<Location[]>([]);
     const [vendors, setVendors] = useState<BusinessEntity[]>([]);
-    // const [newLocation, setNewLocation] = useState<Location>();
+    const [newLocation, setNewLocation] = useState<Location | null>({
+        id:0,
+        name: '',
+        postalCode: '',
+        address: ''
+    });
     const [isNewLocation, setIsNewLocation] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(true);
     const navigate = useNavigate();
@@ -111,13 +116,25 @@ const EventBooking: React.FC = () => {
         e.preventDefault();
         if(eventForm != null){
             try {
-                setLoading(true);
-                
 
+                if(isNewLocation && newLocation){
+                    const updatedEventForm = {
+                        ...eventForm,
+                        location: newLocation, 
+                    };
+        
+                    if (!updatedEventForm.location) {
+                        console.error("Location is missing.");
+                        return;
+                    }
+                }
+
+                setLoading(true);
                 const details:EventDetails|null = await EventService.createEvent(eventForm);
                 console.log(details?.eventId);
+                setLoading(false);
 
-                navigate("/", { replace: true });
+                navigate("/event/book", { replace: true });
             } catch (error) {
                 console.error('Error logging in user:', error);
         
@@ -151,6 +168,8 @@ const EventBooking: React.FC = () => {
       ) => {
         if (selectedOption) {
           const { value } = selectedOption;
+          setNewLocation(null);
+          setIsNewLocation(false);
       
           setEventForm((prevForm) => {
             if (prevForm) {
@@ -180,6 +199,24 @@ const EventBooking: React.FC = () => {
             });
         }
     };
+
+    const handleNewLocationinputChange = (
+        e: React.ChangeEvent<HTMLInputElement>
+      ) => {
+        const { name, value } = e.target;
+    
+        setNewLocation((prevForm) => {
+          if (prevForm) {
+            return {
+              ...prevForm,
+              [name as keyof Location]: value, 
+            };
+          }
+    
+          return prevForm; 
+        });
+
+    };
     
 
     
@@ -205,7 +242,6 @@ const EventBooking: React.FC = () => {
                 <div className="form-group">
                         <label>Event Description</label>
                         <input name="description" type="text" placeholder="Enter event description" value={eventForm?.description} onChange={(e) => handleFieldChange(e)} />
-                        {/* {errors[FIELD_NAMES.FIRST_NAME] && <div className="error">{errors[FIELD_NAMES.FIRST_NAME]}</div>} */}
                 </div>
 
                 <div className="form-group">
@@ -217,12 +253,23 @@ const EventBooking: React.FC = () => {
                         placeholder="Select location"
                     />
                     <button onClick={() => setIsNewLocation(true)}>Add new location</button>
-                    {/* {errors[FIELD_NAMES.HEALTHCARE_FACILITY_ID] && <div className="error">{errors[FIELD_NAMES.HEALTHCARE_FACILITY_ID]}</div>} */}
                 </div>
 
                 {isNewLocation && 
                 (
-                    <div className="form-group">
+                    <div>
+                        <div className="form-group">  
+                            <label>Location Name</label>
+                            <input name="locationName" type="text" placeholder="Enter location name" value={newLocation?.name} onChange={(e) => handleNewLocationinputChange(e)} />
+                        </div>
+                        <div className="form-group">  
+                            <label>Address</label>
+                            <input name="address" type="text" placeholder="Enter address" value={newLocation?.address} onChange={(e) => handleNewLocationinputChange(e)} />
+                        </div>
+                        <div className="form-group">  
+                            <label>Postal Code</label>
+                            <input name="postalCode" type="text" placeholder="Enter postalCode" value={newLocation?.postalCode} onChange={(e) => handleNewLocationinputChange(e)} />
+                        </div>
                     </div>
                     
                 )}
@@ -250,34 +297,6 @@ const EventBooking: React.FC = () => {
                             />
                         </div>
                     ))}
-                    {/* <div className="form-group">
-                    <DatePicker
-                        selected={eventForm?.eventDates[0] ? new Date(eventForm.eventDates[0].date) : minDate}
-                        onChange={handleDateChange}
-                        minDate={minDate} 
-                        maxDate={maxDate} 
-                        dateFormat="yyyy-MM-dd" 
-                    />
-                    </div>
-                    <div className="form-group">
-                    <DatePicker
-                        selected={eventForm?.eventDates[1] ? new Date(eventForm.eventDates[1].date) : minDate}
-                        onChange={handleDateChange}
-                        minDate={minDate} 
-                        maxDate={maxDate} 
-                        dateFormat="yyyy-MM-dd" 
-                    />
-                    </div>
-                    <div className="form-group">
-                    <DatePicker
-                        selected={eventForm?.eventDates[2] ? new Date(eventForm.eventDates[2].date) : minDate}
-                        onChange={handleDateChange}
-                        minDate={minDate} 
-                        maxDate={maxDate} 
-                        dateFormat="yyyy-MM-dd" 
-                    />
-                    </div> */}
-                    {/* {errors[FIELD_NAMES.DATE] && <div className="error">{errors[FIELD_NAMES.DATE]}</div>} */}
                 </div>
             </div>
 

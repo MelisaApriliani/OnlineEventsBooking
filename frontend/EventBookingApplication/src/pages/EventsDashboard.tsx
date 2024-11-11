@@ -90,7 +90,11 @@ const EventsDashboard: React.FC = () => {
             <p><strong>Role: </strong>{userDetails?.role}</p>
             <button onClick={handleCreateEvent} className="create-event-button">Create Event</button>
         </div>
-        
+        {events ? (
+            <div><strong>Your Events:</strong></div>
+        ) : (
+            <div>You do not have any events at the moment!</div>
+        )}
         <EventList events={events} onUpdateEvent={handleUpdateEvent} />
     </div>
     );
