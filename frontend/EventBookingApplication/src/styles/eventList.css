@@ -1,0 +1,93 @@
+/* .arrow-button{
+    background: "none";
+    border: "none";
+    cursor: "pointer";
+    
+} */
+
+.event-item {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .event-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .event-name h3 {
+    margin: 0;
+  }
+  
+  .event-status {
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-weight: bold;
+  }
+  
+  .status-green {
+    background-color: green;
+  }
+  
+  .status-orange {
+    background-color: orange;
+  }
+  
+  .status-red {
+    background-color: red;
+  }
+  
+  .event-details {
+    padding: 10px 0;
+    /* border-top: 1px solid #ddd; */
+  }
+  
+  .update-event {
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  .update-button {
+    padding: 8px 16px;
+    background-color: blue;
+    color: white;
+    border: none;
+    border-radius: 5px;
+  }
+
+  .modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Adds space between the buttons */
+  }
+  
+
+.reject-button {
+    background-color: red;
+    color: white;
+}
+
+.approve-button {
+    background-color: blue;
+    color: white;
+}
+
+.confirm-button {
+    background-color: green;
+    color: white;
+}
+

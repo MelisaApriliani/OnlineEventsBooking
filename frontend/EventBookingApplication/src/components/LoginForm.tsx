@@ -29,9 +29,13 @@ const LoginForm: React.FC<LoginProps> = ({ onLoginSuccess }) => {
 
       if(token != null && token.length>0){
         saveToken(token)
+        console.log("token:",token)
+        onLoginSuccess();
+      }else{
+        setError("Unable to logging in.");
       }
       
-      onLoginSuccess();
+      
     } catch (error) {
       console.error('Error logging in user:', error);
 

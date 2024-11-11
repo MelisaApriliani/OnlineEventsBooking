@@ -1,13 +1,13 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import { EventDetails } from '../models/Event';
+import { CreateEventPayload, EventDetails } from '../models/Event';
 import { Location } from '../models/Location';
 import { BusinessEntity } from '../models/User';
+import { EventDate } from '../models/EventDate';
 import { EventService } from '../services/EventService';
 import { LocationService } from '../services/LocationService';
 import { VendorService } from '../services/VendorService';
-// import DatePicker from 'react-datepicker';
 import Select, { SingleValue } from 'react-select';
 import DatePicker from 'react-datepicker';
 import '../App.css';
@@ -16,7 +16,7 @@ import '../App.css';
 
 const EventBooking: React.FC = () => {
     const { userDetails } = useContext(AuthContext)!;
-    const [eventForm, setEventForm] = useState<EventDetails | null>(null);
+    const [eventForm, setEventForm] = useState<CreateEventPayload | null>(null);
     const [locations, setLocations] = useState<Location[]>([]);
     const [vendors, setVendors] = useState<BusinessEntity[]>([]);
     // const [newLocation, setNewLocation] = useState<Location>();
@@ -29,7 +29,8 @@ const EventBooking: React.FC = () => {
     // }
 
     useEffect(() => {
-       
+
+        initializeEventForm();
         const fetchData = async () => {
             setLoading(true);
             const locationList:Location[] = await LocationService.getLocations();
@@ -52,6 +53,53 @@ const EventBooking: React.FC = () => {
      
     }, []);
 
+    const initializeEventForm = () => {
+        const companyId = userDetails?.businessId ? userDetails?.businessId : 0 ; 
+        const today = new Date();
+        const dateCreated = today.toISOString().split('T')[0];
+        
+        const minDate = new Date(today);
+        minDate.setDate(today.getDate() + 6); // 6 days ahead of today
+        const dates: EventDate[] = [];
+
+        for (let i = 0; i < 3; i++) {
+            
+            const eventDate = new Date(minDate);
+            eventDate.setDate(minDate.getDate() + i);
+            const dateStr = eventDate.toISOString().split('T')[0]
+
+            const event: EventDate = {
+                id: 0, 
+                date: dateStr, 
+            };
+
+            dates.push(event);
+        }
+        
+        const initialEventForm: CreateEventPayload = {
+          companyId,
+          vendorId: 0, 
+          eventName: '',
+          description: '',
+          location: {
+            id: 0,
+            name: '',
+            postalCode: '',
+            address: '',
+          },
+          dateCreated,
+          eventDates: dates, 
+        };
+    
+        setEventForm(initialEventForm); 
+      };
+
+    useEffect(() => {
+
+        console.log(eventForm)
+
+    }, [eventForm])
+
 
     // const handleLogout = () => {
     //     console.log('User logged in successfully!');
@@ -64,6 +112,8 @@ const EventBooking: React.FC = () => {
         if(eventForm != null){
             try {
                 setLoading(true);
+                
+
                 const details:EventDetails|null = await EventService.createEvent(eventForm);
                 console.log(details?.eventId);
 
@@ -86,17 +136,18 @@ const EventBooking: React.FC = () => {
           if (prevForm) {
             return {
               ...prevForm,
-              [name as keyof EventDetails]: value, 
+              [name as keyof CreateEventPayload]: value, 
             };
           }
     
           return prevForm; 
         });
+
     };
 
     const handleSelectChange = (
-        selectedOption: SingleValue<{ value: number; label: string }>, 
-        name: keyof EventDetails 
+        selectedOption: SingleValue<{ value: Location| number; label: string }>, 
+        name: keyof CreateEventPayload 
       ) => {
         if (selectedOption) {
           const { value } = selectedOption;
@@ -113,21 +164,30 @@ const EventBooking: React.FC = () => {
         }
     };
 
-    const handleDateChange = (date: Date | null) => {
+    const handleDateChange = (date: Date | null, index: number) => {
         if (date) {
-          // Convert date to YYYY-MM-DD format
-          const formattedDate = date.toISOString().split('T')[0];
-          console.log(formattedDate)
-        //   onChange(FIELD_NAMES.DATE, formattedDate);
+            const formattedDate = date.toISOString().split('T')[0];
+            setEventForm((prevForm) => {
+                if (prevForm) {
+                    const updatedEventDates = [...prevForm.eventDates];
+                    updatedEventDates[index] = { ...updatedEventDates[index], date: formattedDate };
+                    return {
+                        ...prevForm,
+                        eventDates: updatedEventDates
+                    };
+                }
+                return prevForm;
+            });
         }
     };
+    
 
     
 
     if (loading) return <p>Loading...</p>;
     const today = new Date();
     const minDate = new Date(today);
-    minDate.setDate(today.getDate() + 6); // Minimum date is 6 days from now
+    minDate.setDate(today.getDate() + 6); 
 
     const maxDate = new Date(today);
     maxDate.setMonth(today.getMonth() + 6);
@@ -152,7 +212,7 @@ const EventBooking: React.FC = () => {
                     <label>Location</label>
                     <Select
                         name = "locationId"
-                        options={locations.map((location: Location) => ({ value: location.id, label: location.name }))}
+                        options={locations.map((location: Location) => ({ value: location, label: location.name }))}
                         onChange={(selectedOption) => handleSelectChange(selectedOption, "location")} 
                         placeholder="Select location"
                     />
@@ -172,20 +232,51 @@ const EventBooking: React.FC = () => {
                     <Select
                         name = "vendorId"
                         options={vendors.map((vendor: BusinessEntity) => ({ value: vendor.businessId, label: vendor.businessEntityName }))}
-                        onChange={(selectedOption) => handleSelectChange(selectedOption, "vendor")} 
+                        onChange={(selectedOption) => handleSelectChange(selectedOption, "vendorId")} 
                         placeholder="Select vendor"
                     />
                     {/* {errors[FIELD_NAMES.HEALTHCARE_FACILITY_ID] && <div className="error">{errors[FIELD_NAMES.HEALTHCARE_FACILITY_ID]}</div>} */}
                 </div>
-                <div className="form-group">
-                    <label>Date</label>
+                <div>
+                    
+                    <label>Proposed Dates</label>
+                    {eventForm?.eventDates.map((eventDate, index) => (
+                        <div key={index} className="form-group">
+                            <DatePicker
+                                selected={new Date(eventDate.date)}
+                                onChange={(date) => handleDateChange(date, index)}
+                                minDate={minDate}
+                                dateFormat="yyyy-MM-dd"
+                            />
+                        </div>
+                    ))}
+                    {/* <div className="form-group">
                     <DatePicker
-                        selected={eventForm?.eventDates[0] ? eventForm.eventDates[0].date: minDate}
+                        selected={eventForm?.eventDates[0] ? new Date(eventForm.eventDates[0].date) : minDate}
                         onChange={handleDateChange}
                         minDate={minDate} 
                         maxDate={maxDate} 
                         dateFormat="yyyy-MM-dd" 
                     />
+                    </div>
+                    <div className="form-group">
+                    <DatePicker
+                        selected={eventForm?.eventDates[1] ? new Date(eventForm.eventDates[1].date) : minDate}
+                        onChange={handleDateChange}
+                        minDate={minDate} 
+                        maxDate={maxDate} 
+                        dateFormat="yyyy-MM-dd" 
+                    />
+                    </div>
+                    <div className="form-group">
+                    <DatePicker
+                        selected={eventForm?.eventDates[2] ? new Date(eventForm.eventDates[2].date) : minDate}
+                        onChange={handleDateChange}
+                        minDate={minDate} 
+                        maxDate={maxDate} 
+                        dateFormat="yyyy-MM-dd" 
+                    />
+                    </div> */}
                     {/* {errors[FIELD_NAMES.DATE] && <div className="error">{errors[FIELD_NAMES.DATE]}</div>} */}
                 </div>
             </div>
