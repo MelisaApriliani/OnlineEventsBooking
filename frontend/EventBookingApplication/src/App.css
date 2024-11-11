@@ -101,54 +101,13 @@ button:hover {
   background-color: #0056b3;
 }
 
-
-/* .react-datepicker-wrapper {
-  display: inline-block;
-  padding: 0;
-  border: 0;
+.role-and-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
 }
 
-.react-datepicker__input-container {
-  position: relative;
-  display: inline-block;
-  width: 100%;
+.role-and-button p {
+  margin: 0;
 }
-
-.react-datepicker-popper {
-  z-index: 1;
-  line-height: 0;
-  position: absolute;
-    left: 0px;
-    top: 0px;
-    transform: translate(96.5px, -56px);
-    will-change: transform;
-}
-
-.react-datepicker {
-  font-family: "Helvetica Neue", helvetica, arial, sans-serif;
-  font-size: 0.8rem;
-  background-color: #fff;
-  color: #000;
-  border: 1px solid #aeaeae;
-  border-radius: 0.3rem;
-  display: inline-block;
-  position: relative;
-  line-height: initial;
-}
-
-.react-datepicker__aria-live {
-  position: absolute;
-  clip-path: circle(0);
-  border: 0;
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  width: 1px;
-  white-space: nowrap;
-}
-
-.react-datepicker__month-container {
-  float: left;
-} */
-

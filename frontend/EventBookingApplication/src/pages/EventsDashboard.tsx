@@ -80,18 +80,19 @@ const EventsDashboard: React.FC = () => {
         navigate('/event/book');
     };
 
-    // if (loading) return <p>Loading...</p>;
-
     return(
         
         <div className="login-container">
-
-            <h1>Welcome to Event Online Booking Application!</h1>
-            <h2>You are logged in as <strong>{userDetails?.businessEntityName}</strong></h2>
+        <h1>Welcome to Event Online Booking Application!</h1>
+        <h2>You are logged in as <strong>{userDetails?.businessEntityName}</strong></h2>
+        
+        <div className="role-and-button">
             <p><strong>Role: </strong>{userDetails?.role}</p>
-            <button onClick={handleCreateEvent}>Create Event</button>
-            <EventList events={events} onUpdateEvent={handleUpdateEvent} />
+            <button onClick={handleCreateEvent} className="create-event-button">Create Event</button>
         </div>
+        
+        <EventList events={events} onUpdateEvent={handleUpdateEvent} />
+    </div>
     );
 };
 
