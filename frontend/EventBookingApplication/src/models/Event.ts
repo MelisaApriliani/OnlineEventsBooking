@@ -8,15 +8,16 @@ export interface CreateEventPayload {
     eventName: string;
     description: string;
     location: Location;
-    dateCreated: EventDate;
+    dateCreated: string;
     eventDates: EventDate[];
 }
 
 export interface UpdateEventPayload {
     eventId: number;
+    eventName: string;
     companyId: number;
     vendorId: number;    
-    dateCreated: EventDate;
+    dateCreated: Date;
     statusId: number;
     remarks: string;
     eventDates: EventDate[];
@@ -29,8 +30,8 @@ export interface EventDetails {
     eventName: string;
     description: string;
     location: Location;
-    dateCreated: EventDate;
-    status: EventStatus;
+    dateCreated: Date;
+    eventStatus: EventStatus;
     remarks: string;
     eventDates: EventDate[];
 }

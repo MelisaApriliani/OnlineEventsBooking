@@ -1,4 +1,4 @@
 export interface EventDate {
-    id: string;
-    date: Date;
+    id: number;
+    date: string;
 }

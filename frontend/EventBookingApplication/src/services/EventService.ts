@@ -6,9 +6,30 @@ const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const EventService = {
 
+  getAuthToken(): string | null{
+    return localStorage.getItem('authToken');
+  },
+
+  getHeader(): any{
+    const token = this.getAuthToken();
+    if(token){
+      return {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      };
+
+    }else{
+      return {
+        'Content-Type': 'application/json',
+      };
+    }
+  },
+
   async getEventsByCompany(companyId: number): Promise<EventDetails[]> {
     try{
-      const response = await axios.get<ApiResponse>(`${API_URL}/event/company/${companyId}`);
+      const response = await axios.get<ApiResponse>(`${API_URL}/event/company/${companyId}`, {
+        headers: this.getHeader(),
+      });
       console.log('get events by company response', response.data)
       if(response.status === 200){
         return response.data.data;
@@ -22,7 +43,9 @@ export const EventService = {
 
   async getEventsByVendor(vendorId: number): Promise<EventDetails[]> {
     try{
-      const response = await axios.get<ApiResponse>(`${API_URL}/event/company/${vendorId}`);
+      const response = await axios.get<ApiResponse>(`${API_URL}/event/vendor/${vendorId}`, {
+        headers: this.getHeader(),
+      });
       console.log('get events by vendor response', response.data)
       if(response.status === 200){
         return response.data.data;
@@ -36,7 +59,9 @@ export const EventService = {
 
   async createEvent(eventDetail: Partial<CreateEventPayload>): Promise<EventDetails | null> {
     try{
-      const response = await axios.post<ApiResponse>(`${API_URL}/event/create`,eventDetail);
+      const response = await axios.post<ApiResponse>(`${API_URL}/event/create`,eventDetail, {
+        headers: this.getHeader(),
+      });
       console.log('create event response', response.data)
       if(response.status === 201){
         return response.data.data;
@@ -51,7 +76,9 @@ export const EventService = {
   async updateEvent(eventDetail: Partial<UpdateEventPayload>): Promise<EventDetails | null> {
 
     try{
-      const response = await axios.post<ApiResponse>(`${API_URL}/event/update`,eventDetail);
+      const response = await axios.post<ApiResponse>(`${API_URL}/event/update`,eventDetail, {
+        headers: this.getHeader(),
+      });
       console.log('update event response', response.data)
       if(response.status === 201){
         return response.data.data;

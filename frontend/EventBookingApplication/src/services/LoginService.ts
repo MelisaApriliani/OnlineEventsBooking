@@ -12,7 +12,7 @@ export const LoginService = {
         const response = await axios.post<Token>(`${LOGIN_URL}/login`, loginData);
         
         if (response.status === 200) {
-            return response.data ? response.data.token: "";
+            return response.data ? response.data.jwt: "";
             console.log('login response', response.data)
         } else {
             console.error('Login Failed: ', response.status);

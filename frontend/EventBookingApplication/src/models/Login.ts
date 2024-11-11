@@ -5,5 +5,5 @@ export interface LoginData {
 }
 
 export interface Token {
-    token: string;
+    jwt: string;
 }

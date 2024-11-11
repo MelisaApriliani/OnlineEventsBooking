@@ -4,6 +4,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import LoginPage from './pages/Login';
 import EventBooking from './pages/EventBooking';
 import { AuthProvider } from './context/AuthContext';
+import EventsDashboard from './pages/EventsDashboard';
 
 const App: React.FC = () => (
   <AuthProvider>
@@ -12,6 +13,7 @@ const App: React.FC = () => (
           <Routes>
             <Route path="/" element={<LoginPage />} />
             <Route path="/event/book" element={<EventBooking/>} />
+            <Route path="/event/list" element={<EventsDashboard/>} />
           </Routes>
         </Router>
 

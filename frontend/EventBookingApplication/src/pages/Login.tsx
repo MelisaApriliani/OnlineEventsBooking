@@ -1,6 +1,9 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import LoginForm from '../components/LoginForm';
 import { useNavigate } from 'react-router-dom';
+import { UserService } from '../services/UserService';
+import { BusinessEntity } from '../models/User';
+import { AuthContext } from '../context/AuthContext';
 import '../App.css';
 
 // const handleSubmit = async () => {
@@ -8,12 +11,17 @@ import '../App.css';
 // };
 
 const LoginPage: React.FC = () => {
-
+  const { saveUserDetails } = useContext(AuthContext)!; 
   const navigate = useNavigate();
 
-  const handleLoginSuccess = () => {
+  const handleLoginSuccess = async () => {
     console.log('User logged in successfully!');
-    navigate('/event/book');
+    const userDetails:BusinessEntity|null = await UserService.getUserDetails();
+
+    if(userDetails != null){
+      saveUserDetails(userDetails);
+    }
+    navigate('/event/list');
   };
 
   return(

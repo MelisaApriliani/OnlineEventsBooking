@@ -44,4 +44,22 @@ export const UserService = {
     return null; 
   },
 
+  async getUserDetails(): Promise<BusinessEntity | null> {
+
+    try{
+      const response = await axios.get<ApiResponse>(`${API_URL}/user/details`, {
+        headers: this.getHeader(),
+      });
+      console.log('get user details response', response.data)
+      if(response.status === 200){
+        return response.data.data;
+      }
+
+    }catch (error) {
+      console.log(error);
+    }
+
+    return null; 
+  },
+
 };
