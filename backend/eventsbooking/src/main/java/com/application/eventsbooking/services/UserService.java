@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -28,14 +29,12 @@ public class UserService implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
-
     public User getUserById(int id) {
         return userRepository.findById(id);
     }
 
-
-    public User updateUser(User user) {
-        return userRepository.save(user);
+    public Optional<User> getUserByUsername(String userName) {
+        return userRepository.findByUsername(userName);
     }
 
     @Override

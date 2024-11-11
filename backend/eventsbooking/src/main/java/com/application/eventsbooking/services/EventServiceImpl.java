@@ -14,6 +14,7 @@ import com.application.eventsbooking.models.EventDate;
 import com.application.eventsbooking.models.EventStatus;
 import com.application.eventsbooking.models.Location;
 import com.application.eventsbooking.repositories.EventRepository;
+import com.application.eventsbooking.repositories.LocationRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,17 +27,19 @@ import java.util.stream.Collectors;
 public class EventServiceImpl implements EventService {
 
     private final EventRepository eventRepository;
+    private final LocationRepository locationRepository;
     private final EventMapper eventMapper;
     private final LocationService locationService;
     private final LocationMapper locationMapper;
 
 
     @Autowired
-    public EventServiceImpl(EventRepository eventRepository, EventMapper eventMapper, LocationService locationService, LocationMapper locationMapper) {
+    public EventServiceImpl(EventRepository eventRepository, EventMapper eventMapper, LocationService locationService, LocationMapper locationMapper, LocationRepository locationRepository) {
         this.eventRepository = eventRepository;
         this.eventMapper = eventMapper;
         this.locationService = locationService;
         this.locationMapper = locationMapper;
+        this.locationRepository = locationRepository;
     }
 
     @Override
@@ -54,10 +57,20 @@ public class EventServiceImpl implements EventService {
             //if the event location is not in DB, then save it to DB
             //TODO need to check in DB if the same location name and postalcode exists
             Location location;
-            if(eventCreateDTO.getLocation() != null && eventCreateDTO.getLocation().getId() <= 0) {
-
-                location = locationMapper.toEntity(locationService.addLocation(eventCreateDTO.getLocation()));
-                event.setLocation(location);
+            if(eventCreateDTO.getLocation() != null) {
+                if(eventCreateDTO.getLocation().getId() <= 0) {
+                    // Case 1: Location doesn't exist, create new location
+                    location = locationRepository.save(locationMapper.toEntity(eventCreateDTO.getLocation()));
+                    event.setLocation(location);
+                } else {
+                    // Case 2: Location already exists in DB, just set it
+                    location = locationRepository.findById(eventCreateDTO.getLocation().getId());
+                    if(location == null) {
+                        throw new ResourceNotFoundException(
+                        "Location with ID " + eventCreateDTO.getLocation().getId() + " not found");
+                    }
+                    event.setLocation(location);
+                }
             }
 
             Event createdEvent = eventRepository.save(event);
