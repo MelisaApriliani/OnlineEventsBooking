@@ -134,7 +134,7 @@ const EventBooking: React.FC = () => {
                 console.log(details?.eventId);
                 setLoading(false);
 
-                navigate("/event/book", { replace: true });
+                navigate("/event/list", { replace: true });
             } catch (error) {
                 console.error('Error logging in user:', error);
         
@@ -205,15 +205,18 @@ const EventBooking: React.FC = () => {
       ) => {
         const { name, value } = e.target;
     
-        setNewLocation((prevForm) => {
-          if (prevForm) {
-            return {
-              ...prevForm,
-              [name as keyof Location]: value, 
-            };
-          }
-    
-          return prevForm; 
+        setEventForm((prevForm) => {
+            if (prevForm) {
+              return {
+                ...prevForm,
+                location: {
+                  ...prevForm.location,
+                  [name]: value, 
+                },
+              };
+            }
+        
+            return prevForm;
         });
 
     };
@@ -260,7 +263,7 @@ const EventBooking: React.FC = () => {
                     <div>
                         <div className="form-group">  
                             <label>Location Name</label>
-                            <input name="locationName" type="text" placeholder="Enter location name" value={newLocation?.name} onChange={(e) => handleNewLocationinputChange(e)} />
+                            <input name="name" type="text" placeholder="Enter location name" value={newLocation?.name} onChange={(e) => handleNewLocationinputChange(e)} />
                         </div>
                         <div className="form-group">  
                             <label>Address</label>
