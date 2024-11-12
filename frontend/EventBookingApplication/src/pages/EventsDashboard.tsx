@@ -88,7 +88,10 @@ const EventsDashboard: React.FC = () => {
         
         <div className="role-and-button">
             <p><strong>Role: </strong>{userDetails?.role}</p>
-            <button onClick={handleCreateEvent} className="create-event-button">Create Event</button>
+            {userDetails?.role === "USER" && 
+            (
+                <button onClick={handleCreateEvent} className="create-event-button">Create Event</button>
+            )}
         </div>
         {events ? (
             <div><strong>Your Events:</strong></div>
