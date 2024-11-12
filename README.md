@@ -23,7 +23,7 @@ Before starting, make sure you have the following installed on your system:
 ### Clone the Repository
 ```bash
 git clone https://github.com/MelisaApriliani/OnlineEventsBooking.git
-cd ScheineGenerator
+cd OnlineEventsBooking
 ```
 
 ### Set Up the Frontend
@@ -46,6 +46,6 @@ cd ScheineGenerator
     npm run dev
     ```bash
 
-### Set Up the Frontend
+### Set Up the Backend
 
 For backend setup, please refer to api documentation EventBookingAppDocumentation.pdf
